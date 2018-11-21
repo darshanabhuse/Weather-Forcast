@@ -29,14 +29,22 @@ class App extends React.Component {
     const response = await api_call.json();
     console.log(response);
     if(city && country){
-      this.setState({
-        temperature: response.main.temp,
-        city: response.name,
-        country: response.sys.country,
-        humidity: response.main.humidity,
-        description: response.weather[0].description,
-        error: ""
-      })
+		
+		if(response.cod && response.cod == '404') {
+			this.setState({
+				error: response.message
+			  })
+		}
+		else {
+		  this.setState({
+			temperature: response.main.temp,
+			city: response.name,
+			country: response.sys.country,
+			humidity: response.main.humidity,
+			description: response.weather[0].description,
+			error: ""
+		  })
+		}
     }else{
       this.setState({
         error: "Please input search values..."
@@ -53,10 +61,10 @@ class App extends React.Component {
           <div className="main">
             <div className="container">
               <div className="row">
-                <div className="col-xs-5 title-container">
+                <div className="col-xs-12 col-lg-5 col-md-5 title-container">
                 <Titles />
                 </div>
-                <div className="col-xs-7 form-container">
+                <div className="col-xs-12 col-lg-7 col-md-7 form-container">
                 <Form loadWeather={this.getWeather} />
                   <Weather
                     temperature={this.state.temperature}
