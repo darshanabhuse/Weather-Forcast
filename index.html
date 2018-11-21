@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular JS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body ng-app="jsbin">
+    <div ng-controller="DemoCtrl as vm" class="container">
+      <h1>Weather Information for City: {{ city }}</h1>
+      <div class="accordion_data" ng-repeat="list_item in data " >
+        <h3 class="accordion" ng-click="active = !active" ng-class="active">
+            {{ list_item.dt * 1000 | date: "dd-MMM-yyyy" }}
+        </h3>
+        <div class="slideDown" ng-hide="active">
+		<h4 class="{{ list_item.weather[0].main | lowercase }}">Weather description: {{ list_item.weather[0].description }}</h4>
+          <table width="50%">
+            <tr>
+              <th>Minimum Temparature</th>
+              <th>Maximum Temparature</th>
+            </tr>
+            <tr>
+              <td>{{ list_item.temp.min }}</td>
+              <td>{{ list_item.temp.max }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
