@@ -8,14 +8,11 @@ const Api_Key = "96a5ddcbbb1705a49672d1bca7a425c5";
 class App extends React.Component {
 
   state = {
-
-    temperature: undefined,
     city: undefined,
     country: undefined,
-    humidity: undefined,
-    description: undefined,
-    error: undefined
-  }
+    error: undefined,
+    weathers: []
+  };
 
   //getWeather is a method we'll use to make the api call
   getWeather = async (e) => {
