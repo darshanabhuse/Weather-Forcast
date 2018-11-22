@@ -1,76 +1,57 @@
 import React from "react";
 
-class Weather extends React.Component{
+class Weather extends React.Component {
 
-    render(){
+  render() {
 
-        return(
+    return (
 
-            <div className="weather-info">
-				
-				
-				
-				
-				{
-					this.props.country && this.props.city && this.props.temperature && this.props.humidity && this.props.description && (
-						<table width="100%">
-						<tr>
-						
-							<th  className="weather__key"> Location </th>
-							<th  className="weather__key"> Temperature </th>
-							<th  className="weather__key"> Humidity </th>
-							<th  className="weather__key"> Conditions </th>
-						</tr>
-						
-					
-					<tr>
-					{
-						this.props.country && this.props.city && (
-						  
-							<td>
-							  <p className="weather__value">
-							  {this.props.city}, {this.props.country}
-							  </p>
-							</td>
-						)
-					}
-					{
-						this.props.temperature && 
-						
-						(
-							<td><p className="weather__value">{this.props.temperature}</p>
-							</td>
-						)
-					}
+      <div className="weather-info">
 
-					{
-						this.props.humidity && (
-						<td><p className="weather__value"> {this.props.humidity}</p>
-							</td>
-							
-						
-						)
-					}
+      {
+          this.props.location && this.props.mintemp && this.props.humidity && this.props.description && (
+            <table width="100%">
+             <tr>
+                {
+                  this.props.location && (
+                    <td>
+                      <p className="weather__value">{this.props.location}</p>
+                    </td>
+                  )
+                }
+                {
+                  this.props.mintemp && (
+                    <td>
+                      <p className="weather__value">{this.props.mintemp}</p>
+                    </td>
+                  )
+                }
+                {
+                  this.props.humidity && (
+                    <td>
+                      <p className="weather__value">{this.props.humidity}</p>
+                    </td>
+                  )
+                }
+                {
+                  this.props.description && (
+                    <td>
+                      <p className="weather__value">{this.props.description}</p>
+                    </td>
+                  )
+                }
+              </tr>
+              </table>
+          )
 
-					{
-						this.props.description && (
-							<td><p className="weather__value">   {this.props.description} </p>
-							</td>
-							
-						) 
-					}
-					</tr>
-					</table>
-					)
-				}
-					
-					{
-						this.props.error && <p className="weather__error">{this.props.error}</p>
-					}															
-				
-            </div>
-        )
-    }
+      }
+      {
+          this.props.error && <p className="weather__error">{this.props.error}</p>
+      }
+
+      </div>
+    )
+  }
 }
 
 export default Weather;

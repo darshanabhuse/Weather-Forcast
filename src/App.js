@@ -23,30 +23,26 @@ class App extends React.Component {
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     e.preventDefault();   
-    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${Api_Key}`);
+    const api_call = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast/daily?appid=${Api_Key}&cnt=5&mode=json&q=${city},${country}&units=metric`
+    );
     const response = await api_call.json();
     console.log(response);
-    if(city && country){
-		
-		if(response.cod && response.cod == '404') {
-			this.setState({
-				error: response.message
-			  })
-		}
-		else {
-		  this.setState({
-			temperature: response.main.temp,
-			city: response.name,
-			country: response.sys.country,
-			humidity: response.main.humidity,
-			description: response.weather[0].description,
-			error: ""
-		  })
-		}
-    }else{
+    if (city && country) {
+      if (response.cod && (response.cod == "400" || response.cod == "404" || response.cod == "401")) {
+        this.setState({
+          error: response.message
+        });
+      } else {
+        this.setState({
+          weathers: response.list,
+          location: response.city.name
+        });
+      }
+    } else {
       this.setState({
         error: "Please input search values..."
-      })
+      });
     }
   }
 
@@ -64,14 +60,30 @@ class App extends React.Component {
                 </div>
                 <div className="col-xs-12 col-lg-7 col-md-7 form-container">
                 <Form loadWeather={this.getWeather} />
-                  <Weather
-                    temperature={this.state.temperature}
-                    city={this.state.city}
-                    country={this.state.country}
-                    humidity={this.state.humidity}
-                    description={this.state.description}
-                    error={this.state.error}
-                  />
+					<div>
+                    {
+                      this.state.weathers &&                      
+                        
+                      this.state.weathers.map((weather, index) => (
+                        
+                        <Weather 
+                          key={index}
+                          location={this.state.location} 
+                          mintemp={weather.temp.min}
+                          humidity={weather.humidity}
+                          description={weather.weather[0].description}
+                          />
+                       )  
+                      )
+                    }
+                    {
+                      this.state.error && (
+                        <Weather 
+                          error={this.state.error}
+                        />
+                      )
+                    }
+                  </div>
                 </div>
               </div>
             </div>

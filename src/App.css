@@ -101,8 +101,11 @@ button {
 button:active {
   outline: none;
 }
-table, tr, th, td {
+table {
 	border: 1px solid #000;
+}
+td {
+	width: 25%;
 }
 .weather__info {
   width: 60%;
