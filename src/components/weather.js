@@ -7,9 +7,9 @@ class Weather extends React.Component {
     return (
 
       <div className="weather-info">
-
+        
       {
-          this.props.location && this.props.mintemp && this.props.humidity && this.props.description && (
+          this.props.location && this.props.mintemp && this.props.description && (
             <table width="100%">
              <tr>
                 {
@@ -27,7 +27,7 @@ class Weather extends React.Component {
                   )
                 }
                 {
-                  this.props.humidity && (
+                  this.props.humidity  && (
                     <td>
                       <p className="weather__value">{this.props.humidity}</p>
                     </td>
