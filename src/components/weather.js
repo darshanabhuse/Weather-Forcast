@@ -3,7 +3,7 @@ import React from "react";
 class Weather extends React.Component {
 
   render() {
-
+    	
     return (
 
       <div className="weather-info">
@@ -27,7 +27,14 @@ class Weather extends React.Component {
                   )
                 }
                 {
-                  this.props.humidity  && (
+                  this.props.humidity != 0  && (
+                    <td>
+                      <p className="weather__value">{this.props.humidity}</p>
+                    </td>
+                  )
+                }
+                {
+                  this.props.humidity==0 && (
                     <td>
                       <p className="weather__value">{this.props.humidity}</p>
                     </td>
@@ -36,7 +43,7 @@ class Weather extends React.Component {
                 {
                   this.props.description && (
                     <td>
-                      <p className="weather__value">{this.props.description}</p>
+                      <img id="wicon" src={this.props.icon} alt="Weather icon"></img><p className="weather__value">{this.props.description}</p>
                     </td>
                   )
                 }

@@ -21,7 +21,7 @@ class App extends React.Component {
     const country = e.target.elements.country.value;
     e.preventDefault();   
     const api_call = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast/daily?appid=${Api_Key}&cnt=5&mode=json&q=${city},${country}&units=metric`
+      `https://api.openweathermap.org/data/2.5/forecast?appid=${Api_Key}&cnt=5&mode=json&q=${city},${country}&units=metric`
     );
     const response = await api_call.json();
     console.log(response);
@@ -42,9 +42,30 @@ class App extends React.Component {
       });
     }
   }
+  // formatDate(dateTxt) {
+	// 	const monthNames = ["January", "February", "March", 
+	// 						"April", "May", "June", "July", 
+	// 						"August", "September", "October", 
+	// 						"November", "December"
+	// 						]
+	// 	let date = dateTxt.split(' ')[0].split('-')
+	// 	return `${date[2]} ${monthNames[date[1]]}`
+	// }
 
   render() {
-
+    console.log("weathers in render******",this.state.weathers);
+    let weatherDetails = this.state.weathers.map((weather, index) => (
+                        
+      <Weather 
+        key={index}
+        location={this.state.location} 
+        mintemp={weather.main.temp_min}
+        humidity={weather.main.humidity}
+        description={weather.weather[0].description}
+        icon={"http://openweathermap.org/img/w/"+ weather.weather[0].icon + ".png"}
+      />
+     )  
+    )
     return (
 
       <div>
@@ -52,26 +73,45 @@ class App extends React.Component {
           <div className="main">
             <div className="container">
               <div className="row">
-                <div className="col-xs-12 col-lg-5 col-md-5 title-container">
+                <div className="col-xs-12 col-lg-4 col-md-4 title-container">
                 <Titles />
                 </div>
-                <div className="col-xs-12 col-lg-7 col-md-7 form-container">
+                <div className="col-xs-12 col-lg-8 col-md-8 form-container">
                 <Form loadWeather={this.getWeather} />
-					<div>
+					        <div>
+                    
                     {
-                      this.state.weathers &&                      
-                        
-                      this.state.weathers.map((weather, index) => (
-                        
-                        <Weather 
-                          key={index}
-                          location={this.state.location} 
-                          mintemp={weather.temp.min}
-                          humidity={weather.humidity}
-                          description={weather.weather[0].description}
-                          />
-                       )  
+                      this.state.weathers && this.state.weathers.length>0  && (
+
+                        <table width="100%">
+                          <tbody>
+                            <tr>
+                              <th>Location</th>
+                              <th>Min Temprature</th>
+                              <th>Humidity </th>
+                              <th>Description</th>
+                            </tr>
+                          </tbody>
+                        </table>
                       )
+                    }
+                    
+                    {
+
+                      this.state.weathers && weatherDetails                      
+                      
+                      // this.state.weathers.map((weather, index) => (
+                        
+                      //   <Weather 
+                      //     key={index}
+                      //     location={this.state.location} 
+                      //     mintemp={weather.main.temp_min}
+                      //     humidity={weather.main.humidity}
+                      //     description={weather.weather[0].description}
+                      //     icon={"http://openweathermap.org/img/w/"+ weather.weather[0].icon + ".png"}
+                      //   />
+                      //  )  
+                      // )
                     }
                     {
                       this.state.error && (
