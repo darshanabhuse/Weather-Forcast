@@ -14,6 +14,7 @@ Git Repository Name: Weather-Forcast
 ## Installation:
 
 * git clone 
+* git checkout to branch "weatherForcastReact"
 * npm install
 * npm start
 
